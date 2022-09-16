@@ -1,16 +1,21 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {row,col,Container} from 'react-bootstrap'
+import {row,col,Container} from 'react-bootstrap';
+import axios from 'axios';
 import { useState } from 'react';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import data from './routes/data.js';
 import DetailPage from './routes/detail'
+import { computeHeadingLevel } from '@testing-library/react';
+
 
 
 
 function App() {
   let [shoes,setShoes] = useState(data);
   let navigate = useNavigate();
+  let [buttonCount,setButtonCount] = useState(1);
+  let [loading, setLoading] = useState(false);
   return (
 
     <div className="App">
@@ -41,8 +46,30 @@ function App() {
           <Route path="member" element={<div>멤버임</div>}/>
           <Route path='location' element={<div>위치임</div>}/>
         </Route>
-        
       </Routes>
+      {
+        loading ? <span>로딩중</span> : null
+      }
+      {
+          buttonCount >= 3 ? null:
+          <button onClick={()=> {
+            setButtonCount(buttonCount+1);
+            setLoading(true);
+            axios.get('https://codingapple1.github.io/shop/data'+(buttonCount+1)+'.json')
+            .then((result)=>{
+              setLoading(false);
+              console.log(result.data)
+              let copy = [...shoes,...result.data];
+              setShoes(copy);
+            }).catch(()=> {
+              setLoading(false);
+            })
+            
+            
+          }}>버튼</button>
+
+      }
+      
     </div>
   );
 }
