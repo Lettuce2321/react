@@ -5,7 +5,8 @@ import axios from 'axios';
 import { useState } from 'react';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import data from './routes/data.js';
-import DetailPage from './routes/detail'
+import DetailPage from './routes/detail';
+import Cart from './routes/Cart';
 import { computeHeadingLevel } from '@testing-library/react';
 
 
@@ -22,6 +23,7 @@ function App() {
       <Link to='/'>홈</Link>
       <Link to='/detail'>상세페이지</Link>
       <Link to='/about'>자세히</Link>
+      <Link to='/cart'>카트</Link>
       <Routes>
         <Route path='/' element={
           <>
@@ -39,6 +41,7 @@ function App() {
          </>
         }/>
         <Route path='/detail/:id' element={<DetailPage shoes={shoes}></DetailPage>}/>
+        <Route path='/cart' element={<Cart></Cart>}/>
         
 
         <Route path='/*' element={<p>404</p>}/>
