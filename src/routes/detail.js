@@ -25,6 +25,19 @@ function DetailPage(props) {
     let [detailFade,setDetailFade] = useState('');
     let {id} = useParams();
     useEffect(()=> {
+        let temp = JSON.parse(localStorage.getItem('watched'));
+        for(let i=0; i<temp.length; i++) {
+            if(temp[i] == props.id) {
+                temp.splice(i,1);
+                temp.push(id-1);
+                break;
+            }
+        }
+        console.log(id-1)
+        temp.push(id-1);
+        localStorage.setItem('watched',JSON.stringify(temp));
+    },[])
+    useEffect(()=> {
         let a = setTimeout(() => {
             setDetailFade('end')
         }, 10);

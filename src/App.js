@@ -2,12 +2,17 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {row,col,Container} from 'react-bootstrap';
 import axios from 'axios';
-import { useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import data from './routes/data.js';
-import DetailPage from './routes/detail';
-import Cart from './routes/Cart';
 import { computeHeadingLevel } from '@testing-library/react';
+import { useQueries, useQuery } from '@tanstack/react-query';
+// import DetailPage from './routes/detail';
+// import Cart from './routes/Cart';
+
+const DetailPage = lazy(() => import('./routes/detail'));
+const Cart = lazy(()=> import('./routes/Cart'));
+
 
 
 
@@ -17,6 +22,19 @@ function App() {
   let navigate = useNavigate();
   let [buttonCount,setButtonCount] = useState(1);
   let [loading, setLoading] = useState(false);
+  let obj = {name: 'kim'};
+  localStorage.setItem('data',JSON.stringify(obj));
+
+  // let result = useQuery('작명', ()=> {
+  //   axios.get('https://codingapple1.github.io/userdata.json')
+  //   .then((a)=>{ return a.data })
+  //   console.log(result.data)
+  //   })
+
+  useEffect(()=>{
+    localStorage.setItem('watched', JSON.stringify( [] ))
+  },[]) 
+
   return (
 
     <div className="App">
@@ -24,6 +42,10 @@ function App() {
       <Link to='/detail'>상세페이지</Link>
       <Link to='/about'>자세히</Link>
       <Link to='/cart'>카트</Link>
+      {/* <div>
+        <p>{result.isLoading ? '로딩중' : result.data}</p>
+      </div> */}
+      <Suspense fallback={<div>로딩중임</div>}>
       <Routes>
         <Route path='/' element={
           <>
@@ -50,6 +72,7 @@ function App() {
           <Route path='location' element={<div>위치임</div>}/>
         </Route>
       </Routes>
+      </Suspense>
       {
         loading ? <span>로딩중</span> : null
       }
@@ -70,8 +93,10 @@ function App() {
             
             
           }}>버튼</button>
-
       }
+      <div>
+
+      </div>
       
     </div>
   );

@@ -1,14 +1,21 @@
+import { useState } from 'react';
 import {Table} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser, setCountPlus, setCountMinus } from '../store';
 
-
+function Child() {
+    return <div>자식임</div>
+}
 function Cart() {
 
     let cart = useSelector((state)=>{return state.cart})
+    let [count, setCount ] = useState(0);
     
     return(
         <div>
+            <Child></Child>
+            <button onClick={()=>{setCount(count+1)}}>+</button>
+
             <Table>
                 <thead>
                     <tr>
