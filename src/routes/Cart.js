@@ -10,11 +10,11 @@ function Cart() {
 
     let cart = useSelector((state)=>{return state.cart})
     let [count, setCount ] = useState(0);
-    
+    let [age, setAge] = useState(20);
     return(
         <div>
             <Child></Child>
-            <button onClick={()=>{setCount(count+1)}}>+</button>
+            <button onClick={()=>{ setCount(count+1) }}>+</button>
 
             <Table>
                 <thead>

@@ -35,6 +35,16 @@
   opacity: 1;
   transition: all 0.5s;
 }
+
+.watched {
+  display: flex;
+  /* justify-content: space-between; */
+}
+.watched img {
+  margin: 20px;
+  padding-left: 10px;
+  padding-right: 15px;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

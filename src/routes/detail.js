@@ -26,15 +26,21 @@ function DetailPage(props) {
     let {id} = useParams();
     useEffect(()=> {
         let temp = JSON.parse(localStorage.getItem('watched'));
+        let check = true;
         for(let i=0; i<temp.length; i++) {
-            if(temp[i] == props.id) {
+            // console.log(temp[i])
+            // console.log(id-1)
+            // console.log(i)
+            if(temp[i] == id-1) {
+                console.log(temp);
                 temp.splice(i,1);
+                console.log(temp);
                 temp.push(id-1);
+                check = false;
                 break;
             }
         }
-        console.log(id-1)
-        temp.push(id-1);
+        if(check) { temp.push(id-1); }
         localStorage.setItem('watched',JSON.stringify(temp));
     },[])
     useEffect(()=> {

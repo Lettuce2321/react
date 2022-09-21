@@ -7,6 +7,8 @@ import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import data from './routes/data.js';
 import { computeHeadingLevel } from '@testing-library/react';
 import { useQueries, useQuery } from '@tanstack/react-query';
+import {useDispatch} from 'react-redux'
+import { setWatchedState } from './store'
 // import DetailPage from './routes/detail';
 // import Cart from './routes/Cart';
 
@@ -94,8 +96,10 @@ function App() {
             
           }}>버튼</button>
       }
-      <div>
-
+      <div className="container">
+        JSON.parse(localStorage.get('watched')).map(()=>{
+          <Watched></Watched>
+        })
       </div>
       
     </div>
@@ -115,6 +119,19 @@ function ShoesItem(props) {
       <img src={'https://codingapple1.github.io/shop/shoes'+(props.shoes.id+1)+'.jpg'} width="80%" />
       <Link to={'/detail/'+(props.shoes.id+1)}><h4>{ props.shoes.title }</h4></Link>
       <p>{ props.shoes.price }</p>
+    </div>
+  )
+}
+function Watched() {
+  
+  return(
+    <div className="watched">
+      <img src={"https://codingapple1.github.io/shop/shoes1.jpg"} width="30%"/>
+      <div style={{paddingTop:"33px", textAlign: "left"}}>
+        <h4>title</h4>
+        <p>content</p>
+        <p>price: </p>           
+      </div>
     </div>
   )
 }
